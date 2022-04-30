@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display:grid;
+            grid-template-columns: repeat(2,1fr);
+            grid-gap:10px;
+            /* width:900px; */
+            margin-left:200px;
+            border:1px solid black;
+
+        }
+        img{
+            width:590px;
+            height:300px;
+        }
+        div{
+            /* border:1px solid black; */
+            text-align:center;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+            font-size:30px;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>This is the movies information</h1>
+    <div id = "container"></div>
+    
+</body>
+</html>
+
+<script>
+var url = "http://www.omdbapi.com/?i=tt3896198&apikey=ee85dd02&s={movie}";;
+ async function getData(){
+       try{
+           let res = await fetch(url);
+           let data = await res.json();
+           displayData(data.Search)
+        //    console.log(data.Search)  //this is the key data
+      }catch(err) {
+            console.log(err);
+    }
+   }
+   getData();
+
+function displayData(data1){
+    console.log(data1)
+    data1.forEach(function(e1){
+        
+        var div = document.createElement("div")
+
+
+        var Poster = document.createElement("img")
+         Poster.src = e1.Poster;
+
+        var Title = document.createElement("p")
+        Title.innerText = e1.Title;
+
+        var Type = document.createElement("p")
+        Type.innerText = e1.Type;
+
+        var Year = document.createElement("p")
+        Year.innerText = e1.Year;
+
+        var imdbID = document.createElement("p")
+        imdbID.innerText = e1.imdbID;
+
+        div.append(Poster,Title,Type,Year,imdbID)
+
+  container.append(div)
+    });
+}
+
+
+
+   
+</script>
